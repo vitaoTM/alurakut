@@ -16,12 +16,11 @@ function ProfileSidebar(propriedades) {
 export default function Home() {
   const usuarioAleatorio = 'vitaoTM';
   const pessoasFavoritas = [
-    'juunegreiros',
-    'omariosouto',
+    'jvitorfromhell',
+    'erickm32',
     'peas',
-    'rafaballerini',
-    'marcobrunodev',
-    'felipefialho',
+    'reeichert',
+    'MatheusFreitag',
     'haga-'
   ]
 
