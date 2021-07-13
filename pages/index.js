@@ -36,7 +36,8 @@ export default function Home() {
     'peas',
     'reeichert',
     'MatheusFreitag',
-    'haga-'
+    'haga-',
+    
   ]
 
   return (
@@ -111,7 +112,7 @@ export default function Home() {
               Comunidades ({comunidades.length})
             </h2>
             <ul>
-              {comunidades.map((itemAtual) => {
+              {comunidades.slice(0,6).map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
                     <a target='blank' href={itemAtual.comunityURL}>
@@ -129,7 +130,7 @@ export default function Home() {
             </h2>
 
             <ul>
-              {pessoasFavoritas.map((itemAtual) => {
+              {pessoasFavoritas.slice(0,6).map((itemAtual) => {
                 return (
                   <li key={itemAtual}>
                     <a href={`/users/${itemAtual}`}>
