@@ -27,7 +27,8 @@ export default function Home() {
   const [comunidades, setComunidades] = React.useState([{
     id: '12802378123789378912789789123896123', 
     title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
+    comunityURL: 'https://euodeioacordarcedo.com.br'
   }]);
   const pessoasFavoritas = [
     'jvitorfromhell',
@@ -61,13 +62,15 @@ export default function Home() {
                 e.preventDefault();
                 const dadosDoForm = new FormData(e.target);
 
-                console.log('Campo: ', dadosDoForm.get('title'));
-                console.log('Campo: ', dadosDoForm.get('image'));
+                //console.log('Campo: ', dadosDoForm.get('title'));
+                //console.log('Campo: ', dadosDoForm.get('image'));
+                //console.log(dadosDoForm.get('comunityURL'))
 
                 const comunidade = {
                   id: new Date().toISOString(),
                   title: dadosDoForm.get('title'),
                   image: dadosDoForm.get('image'),
+                  comunityURL: dadosDoForm.get('comunityURL')
                 }
                 const comunidadesAtualizadas = [...comunidades, comunidade];
                 setComunidades(comunidadesAtualizadas)
@@ -87,6 +90,13 @@ export default function Home() {
                   aria-label="Coloque uma URL para usarmos de capa"
                 />
               </div>
+              <div>
+                <input
+                  placeholder="Coloque uma URL para sua comunidade"
+                  name="comunityURL"
+                  aria-label="Coloque uma URL para sua comunidade"
+                />
+              </div>
 
               <button>
                 Criar comunidade
@@ -104,7 +114,7 @@ export default function Home() {
               {comunidades.map((itemAtual) => {
                 return (
                   <li key={itemAtual.id}>
-                    <a href={`/users/${itemAtual.title}`}>
+                    <a target='blank' href={itemAtual.comunityURL}>
                       <img src={itemAtual.image} />
                       <span>{itemAtual.title}</span>
                     </a>
