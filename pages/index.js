@@ -23,22 +23,24 @@ function ProfileSidebar(propriedades) {
 }
 
 function ProfileRelationsBox(propriedades) {
+  console.log(' propriedades ', propriedades)
   return (
     <ProfileRelationsBoxWrapper>
       <h2 className="smallTitle">
-        {propriedades.title} ({propriedades.items.length})
+        {propriedades.title} ({propriedades.items.length}) 
       </h2>
       <ul>
-        {/* {seguidores.map((itemAtual) => {
+        {propriedades.items.map((itemAtual) => {
+          console.log('item atual', itemAtual)
           return (
-            <li key={itemAtual}>
-              <a href={`https://github.com/${itemAtual}.png`}>
-                <img src={itemAtual.image} />
-                <span>{itemAtual.title}</span>
+            <li key={itemAtual.id}>
+              <a target='_blank' href={itemAtual.html_url}>
+                <img src={itemAtual.avatar_url} />
+                <span>{itemAtual.login}</span>
               </a>
             </li>
           )
-        })} */}
+        })} 
       </ul>
     </ProfileRelationsBoxWrapper>
   )
@@ -56,10 +58,10 @@ export default function Home() {
   const pessoasFavoritas = [
     'jvitorfromhell',
     'erickm32',
-    'peas',
     'reeichert',
     'MatheusFreitag',
     'haga-',
+    'peas',
     
   ]
   const [seguidores, setSeguidores] = React.useState([]);
