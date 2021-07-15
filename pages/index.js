@@ -23,7 +23,7 @@ function ProfileSidebar(propriedades) {
 }
 
 function ProfileRelationsBox(propriedades) {
-  console.log(' propriedades ', propriedades)
+  //console.log(' propriedades ', propriedades)
   return (
     <ProfileRelationsBoxWrapper>
       <h2 className="smallTitle">
@@ -31,7 +31,7 @@ function ProfileRelationsBox(propriedades) {
       </h2>
       <ul>
         {propriedades.items.map((itemAtual) => {
-          console.log('item atual', itemAtual)
+          // console.log('item atual', itemAtual)
           return (
             <li key={itemAtual.id}>
               <a target='_blank' href={itemAtual.html_url}>
@@ -49,12 +49,7 @@ function ProfileRelationsBox(propriedades) {
 
 export default function Home() {
   const usuarioAleatorio = 'vitaoTM';
-  const [comunidades, setComunidades] = React.useState([{
-    id: '12802378123789378912789789123896123', 
-    title: 'Eu odeio acordar cedo',
-    image: 'https://alurakut.vercel.app/capa-comunidade-01.jpg',
-    comunityURL: 'https://euodeioacordarcedo.com.br'
-  }]);
+  const [comunidades, setComunidades] = React.useState([]);
   const pessoasFavoritas = [
     'jvitorfromhell',
     'erickm32',
@@ -87,14 +82,15 @@ export default function Home() {
           title
           imageUrl
           creatorSlug
-          _status
-          _firstPublishedAt
-        }` })   
+          communityUrl
+
+        }
+      }` })   
     })
     .then((response) => response.json()) // Pega o retorno do response.json() e já retorna
     .then((respostaCompleta) => {
       const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
-      console.log(comunidadesVindasDoDato)
+      // console.log(comunidadesVindasDoDato)
       setComunidades(comunidadesVindasDoDato)
     })
     // .then(function (response) {
@@ -103,7 +99,7 @@ export default function Home() {
 
   }, [])
 
-  console.log('seguidores antes do return', seguidores);
+  // console.log('seguidores antes do return', seguidores);
 
   return (
     <>
@@ -133,10 +129,9 @@ export default function Home() {
                 //console.log(dadosDoForm.get('comunityURL'))
 
                 const comunidade = {
-                  id: new Date().toISOString(),
                   title: dadosDoForm.get('title'),
-                  imageURL: dadosDoForm.get('image'),
-                  comunityURL: dadosDoForm.get('comunityURL'),
+                  imageUrl: dadosDoForm.get('image'),
+                  communityUrl: dadosDoForm.get('comunityURL'),
                   creatorSlug: usuarioAleatorio,
 
                 }
@@ -149,7 +144,7 @@ export default function Home() {
                 })
                 .then(async (response) => {
                   const dados = await response.json();
-                  console.log(dados.registroCriado);
+                  // console.log(dados.registroCriado);
                   const comunidade = dados.registroCriado;
                   const comunidadesAtualizadas = [...comunidades, comunidade];
                   setComunidades(comunidadesAtualizadas)
@@ -193,10 +188,12 @@ export default function Home() {
             </h2>
             <ul>
               {comunidades.slice(0,6).map((itemAtual) => {
+                console.log(itemAtual)
                 return (
                   <li key={itemAtual.id}>
-                    <a target='blank' href={itemAtual.comunityURL}>
-                      <img src={itemAtual.image} />
+                    <a target='blank' href={itemAtual.communityUrl}>
+                      <img src={itemAtual.imageUrl} />
+
                       <span>{itemAtual.title}</span>
                     </a>
                   </li>

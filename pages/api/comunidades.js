@@ -2,17 +2,16 @@ import { SiteClient } from 'datocms-client';
 
 export default async function recebedorDeRequests(request, response) {
     if(request.method === 'POST') {
-        const TOKEN = 'e05a43de139e06efb49f8e6453ab6c';
+        const TOKEN = '7b43e5247831727d0fefc89bf1433a';
         const client = new SiteClient(TOKEN);
 
         // Validar os dados, antes de sair cadastrando
         const registroCriado = await client.items.create({
-            itemType: "836335", // ID do Model de "Communities" criado pelo Dato
+            itemType: "967636", // ID do Model de "Communities" criado pelo Dato
+            
             ...request.body,
-            // title: "Comunidade de Teste",
-            // imageUrl: "https://github.com/omariosouto.png",
-            // creatorSlug: "omariosouto"
         })
+        console.log(request.body)
 
         console.log(registroCriado);
 
