@@ -65,7 +65,6 @@ export default function Home() {
     
   ]
   const [seguidores, setSeguidores] = React.useState([]);
-  // 0 - Pegar o array de dados do github 
   React.useEffect(function() {
     fetch('https://api.github.com/users/vitaoTM/followers')
     .then(function (respostaDoServidor) {
@@ -74,6 +73,34 @@ export default function Home() {
     .then(function(respostaCompleta) {
       setSeguidores(respostaCompleta);
     })
+
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'e05a43de139e06efb49f8e6453ab6c',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ "query": `query{
+        allCommunities {
+          id
+          title
+          imageUrl
+          creatorSlug
+          _status
+          _firstPublishedAt
+        }` })   
+    })
+    .then((response) => response.json()) // Pega o retorno do response.json() e já retorna
+    .then((respostaCompleta) => {
+      const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
+      console.log(comunidadesVindasDoDato)
+      setComunidades(comunidadesVindasDoDato)
+    })
+    // .then(function (response) {
+    //   return response.json()
+    // })
+
   }, [])
 
   console.log('seguidores antes do return', seguidores);
@@ -108,11 +135,25 @@ export default function Home() {
                 const comunidade = {
                   id: new Date().toISOString(),
                   title: dadosDoForm.get('title'),
-                  image: dadosDoForm.get('image'),
-                  comunityURL: dadosDoForm.get('comunityURL')
+                  imageURL: dadosDoForm.get('image'),
+                  comunityURL: dadosDoForm.get('comunityURL'),
+                  creatorSlug: usuarioAleatorio,
+
                 }
-                const comunidadesAtualizadas = [...comunidades, comunidade];
-                setComunidades(comunidadesAtualizadas)
+                fetch('/api/comunidades', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(comunidade)
+                })
+                .then(async (response) => {
+                  const dados = await response.json();
+                  console.log(dados.registroCriado);
+                  const comunidade = dados.registroCriado;
+                  const comunidadesAtualizadas = [...comunidades, comunidade];
+                  setComunidades(comunidadesAtualizadas)
+                })
             }}>
               <div>
                 <input
