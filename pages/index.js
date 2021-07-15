@@ -30,7 +30,7 @@ function ProfileRelationsBox(propriedades) {
         {propriedades.title} ({propriedades.items.length}) 
       </h2>
       <ul>
-        {propriedades.items.map((itemAtual) => {
+        {propriedades.items.slice(0,6).map((itemAtual) => {
           // console.log('item atual', itemAtual)
           return (
             <li key={itemAtual.id}>
@@ -57,11 +57,11 @@ export default function Home() {
     'MatheusFreitag',
     'haga-',
     'peas',
-    
   ]
+
   const [seguidores, setSeguidores] = React.useState([]);
   React.useEffect(function() {
-    fetch('https://api.github.com/users/vitaoTM/followers')
+    fetch(`https://api.github.com/users/${usuarioAleatorio}/followers`)
     .then(function (respostaDoServidor) {
       return respostaDoServidor.json();
     })
@@ -99,6 +99,32 @@ export default function Home() {
 
   }, [])
 
+  function handleCriaComunidade(e) {
+    e.preventDefault();
+    const dadosDoForm = new FormData(e.target);
+
+    const comunidade = {
+      title: dadosDoForm.get('title'),
+      imageUrl: dadosDoForm.get('image'),
+      communityUrl: dadosDoForm.get('comunityURL'),
+      creatorSlug: usuarioAleatorio,
+
+    }
+    fetch('/api/comunidades', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(comunidade)
+    })
+    .then(async (response) => {
+      const dados = await response.json();
+      const comunidade = dados.registroCriado;
+      const comunidadesAtualizadas = [...comunidades, comunidade];
+      setComunidades(comunidadesAtualizadas)
+    })
+}
+
   // console.log('seguidores antes do return', seguidores);
 
   return (
@@ -120,36 +146,7 @@ export default function Home() {
 
           <Box>
             <h2 className="subTitle">O que você deseja fazer?</h2>
-            <form onSubmit={function handleCriaComunidade(e) {
-                e.preventDefault();
-                const dadosDoForm = new FormData(e.target);
-
-                //console.log('Campo: ', dadosDoForm.get('title'));
-                //console.log('Campo: ', dadosDoForm.get('image'));
-                //console.log(dadosDoForm.get('comunityURL'))
-
-                const comunidade = {
-                  title: dadosDoForm.get('title'),
-                  imageUrl: dadosDoForm.get('image'),
-                  communityUrl: dadosDoForm.get('comunityURL'),
-                  creatorSlug: usuarioAleatorio,
-
-                }
-                fetch('/api/comunidades', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify(comunidade)
-                })
-                .then(async (response) => {
-                  const dados = await response.json();
-                  // console.log(dados.registroCriado);
-                  const comunidade = dados.registroCriado;
-                  const comunidadesAtualizadas = [...comunidades, comunidade];
-                  setComunidades(comunidadesAtualizadas)
-                })
-            }}>
+            <form onSubmit={handleCriaComunidade}>
               <div>
                 <input
                   placeholder="Qual vai ser o nome da sua comunidade?"
