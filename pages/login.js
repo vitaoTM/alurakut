@@ -3,10 +3,12 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import nookies from 'nookies';
 
-export default function LoginScreen() {
+export default function LoginScreen(propriedades) {
+   // console.log('propriedades login',propriedades);
   const router = useRouter();
   const [githubUser, setGithubUser] = React.useState('vitaotm');
-
+  const [erro, setErro] = React.useState()
+  console.log('erro', erro)
   return (
     <main style={{ display: 'flex', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <div className="loginScreen">
@@ -19,26 +21,34 @@ export default function LoginScreen() {
         </section>
 
         <section className="formArea">
-          <form className="box" onSubmit={(infosDoEvento) => {
+          <form className="box" onSubmit={async (infosDoEvento) => {
                 infosDoEvento.preventDefault();
+                
                 // alert('Alguém clicou no botão!')
                 console.log('Usuário: ', githubUser)
-                fetch('https://alurakut.vercel.app/api/login', {
+                const resposta = await fetch(`https://api.github.com/users/${githubUser}`)
+                if(resposta.ok){
+                    fetch('https://alurakut.vercel.app/api/login', {
                     method: 'POST',
                     headers: {
-                       'Content-Type': 'application/json'  
-                    },
-                    body: JSON.stringify({ githubUser: githubUser })
-                })
-                .then(async (respostaDoServer) => {
-                    const dadosDaResposta = await respostaDoServer.json()
-                    const token = dadosDaResposta.token;
-                    nookies.set(null, 'USER_TOKEN', token, {
-                        path: '/',
-                        maxAge: 86400 * 7 
-                    })
-                    router.push('/')
-                })
+                        'Content-Type': 'application/json'  
+                        },
+                        body: JSON.stringify({ githubUser: githubUser })
+                    })                    
+                    .then(async (respostaDoServer) => {
+                        const dadosDaResposta = await respostaDoServer.json()
+                        const token = dadosDaResposta.token;
+                        nookies.set(null, 'USER_TOKEN', token, {
+                            path: '/',
+                            maxAge: 86400 * 7 
+                        })
+                        router.push('/')
+                    })  
+                                      
+                }
+                else{
+                    setErro('Usuario não encontrado!')
+                }
           }}>
             <p>
               Acesse agora mesmo com seu usuário do <strong>GitHub</strong>!
@@ -48,12 +58,15 @@ export default function LoginScreen() {
                 value={githubUser}
                 onChange={(evento) => {
                     setGithubUser(evento.target.value)
+                    setErro('')
                 }}
             />
             {githubUser.length === 0
                 ? 'Preencha o campo'
                 : ''
             }
+            <br/>
+            {erro}
             <button type="submit">
               Login
             </button>

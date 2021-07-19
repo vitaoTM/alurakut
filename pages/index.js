@@ -25,7 +25,6 @@ function ProfileSidebar(propriedades) {
 }
 
 function ProfileRelationsBox(propriedades) {
-  //console.log(' propriedades ', propriedades)
   return (
     <ProfileRelationsBoxWrapper>
       <h2 className="smallTitle">
