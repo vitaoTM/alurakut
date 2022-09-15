@@ -1,3 +1,28 @@
+# ALURAKUT
+
+Crianddo um clone do orkut 
+
+| :placard: Vitrine.Dev |     |
+| -------------  | --- |
+| :sparkles: Nome        | **ALURAKUT**
+| :label: Tecnologias | html, react, CSS, JS, vercel
+| :rocket: URL         | https://alurakut-vitaotm.vercel.app/login
+
+
+<!-- Inserir imagem com a #vitrinedev ao final do link -->
+![](https://cdn.discordapp.com/attachments/1020076841312198779/1020076907586400297/unknown.png#vitrinedev)
+
+## Detalhes do projeto
+
+Fiz esse projeto com ajuda da comunidade dev da alura e junto com meu irmão.
+O meu maior desafio nesse projeto foi acompanhar a parte de desenvolvimento do back-end, e a área de login 
+
+![](https://cdn.discordapp.com/attachments/1020076841312198779/1020077724779434124/unknown.png)
+
+
+
+
+
 # Example app with styled-components
 
 This example features how you use a different styling solution than [styled-jsx](https://github.com/vercel/styled-jsx) that also supports universal styles. That means we can serve the required styles for the first render within the HTML and then load the rest in the client. In this case we are using [styled-components](https://github.com/styled-components/styled-components).
@@ -10,7 +35,9 @@ Preview the example live on [StackBlitz](http://stackblitz.com/):
 
 [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-styled-components)
 
-## Deploy your own
+
+
+## Deploy your own (Vercel)
 
 Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
 
