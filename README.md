@@ -10,14 +10,15 @@ Crianddo um clone do orkut
 
 
 <!-- Inserir imagem com a #vitrinedev ao final do link -->
-![](https://cdn.discordapp.com/attachments/1020076841312198779/1020076907586400297/unknown.png#vitrinedev)
+<img hight="250" width="500" src="https://cdn.discordapp.com/attachments/1020076841312198779/1020076907586400297/unknown.png#vitrinedev">
+
 
 ## Detalhes do projeto
 
 Fiz esse projeto com ajuda da comunidade dev da alura e junto com meu irmão.
 O meu maior desafio nesse projeto foi acompanhar a parte de desenvolvimento do back-end, e a área de login 
 
-![](https://cdn.discordapp.com/attachments/1020076841312198779/1020077724779434124/unknown.png)
+<img src="https://cdn.discordapp.com/attachments/1020076841312198779/1020077724779434124/unknown.png">
 
 
 
